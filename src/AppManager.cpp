@@ -6,6 +6,8 @@ AppManager::AppManager(const int width, const int height, const char* title)
 	mAppWindow.create(sf::VideoMode(width, height), title);
 	mAppWindow.setVerticalSyncEnabled(true);
 
+	mSprite.setPosition(sf::Vector2f(0.0f, 0.0f));
+
 	ImGui::SFML::Init(mAppWindow);
 
 	mAppWindow.clear(sf::Color(0));
@@ -39,6 +41,8 @@ void AppManager::Run() {
 			}
 
 		mAppWindow.clear();
+		if (mPlotExists)
+			mAppWindow.draw(mSprite);
 		ImGui::SFML::Render(mAppWindow);
 		mAppWindow.display();
 	}
@@ -89,6 +93,7 @@ void AppManager::ShowFilePathWindow(const char* label) {
 				SimpleCSVLoader csvLoader(mFilePathBuffer);
 				PlotData data = csvLoader.GetAll();
 				PlotDataGraph(data);
+				LoadSprite();
 			}
 			else if (mDS == DataSource::SCRIPT)
 				//load script
@@ -103,11 +108,11 @@ void AppManager::ShowFilePathWindow(const char* label) {
 void AppManager::PlotDataGraph(PlotData& data) {
 	StringReference* errorMessage = new StringReference();
 	RGBABitmapImageReference* imageReference = CreateRGBABitmapImageReference();
-	bool success = DrawScatterPlot(imageReference, 600, 400, &(data.xs), &(data.ys), errorMessage);
+	bool success = DrawScatterPlot(imageReference, mScrWidth, mScrHeight, &(data.xs), &(data.ys), errorMessage);
 
 	if (success) {
 		std::vector<double>* pngdata = ConvertToPNG(imageReference->image);
-		WriteToFile(pngdata, "test.png");
+		WriteToFile(pngdata, "lastPlot.png");
 		DeleteImage(imageReference->image);
 	}
 	else {
@@ -120,4 +125,12 @@ void AppManager::PlotDataGraph(PlotData& data) {
 
 	delete errorMessage;
 	delete imageReference;
+}
+
+void AppManager::LoadSprite() {
+	if (!mTexture.loadFromFile("lastPlot.png")) {
+		printf("Error while rendering plot texture!\n");
+	}
+	mSprite.setTexture(mTexture);
+	mPlotExists = true;
 }

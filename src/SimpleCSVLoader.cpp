@@ -12,9 +12,10 @@ SimpleCSVLoader::~SimpleCSVLoader() {
 
 PlotData SimpleCSVLoader::GetAll() {
 	std::string line;
-	while (std::getline(mFS, line)) {
-		AddRecord(line);
-	}
+	if(mFS)
+		while (std::getline(mFS, line)) {
+			AddRecord(line);
+		}
 
 	return mData;
 }

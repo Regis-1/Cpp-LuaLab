@@ -24,6 +24,9 @@ private:
 	//SFML objects
 	sf::RenderWindow mAppWindow;
 	sf::Clock mDeltaClock;
+	sf::Texture mTexture;
+	sf::Sprite mSprite;
+	bool mPlotExists = false;
 
 	//ImGui
 	DataSource mDS = DataSource::NONE;
@@ -34,6 +37,7 @@ private:
 	void RenderDataWindow();
 	void ShowFilePathWindow(const char* label);
 	void PlotDataGraph(PlotData& data);
+	void LoadSprite();
 public:
 	AppManager() = delete;
 	AppManager(const AppManager& other) = delete;
