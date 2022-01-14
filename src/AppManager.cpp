@@ -35,6 +35,8 @@ void AppManager::Run() {
 				ShowFilePathWindow("Lua script path");
 				break;
 			case CONSOLE:
+				foo();
+				mDS = DataSource::NONE;
 				break;
 			default:
 				break;
@@ -61,6 +63,7 @@ void AppManager::EventHandling() {
 }
 
 void AppManager::RenderDataWindow() {
+	ImGui::SetNextWindowSize(ImVec2(100, 30));
 	ImGui::Begin("Data", 0, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoResize);
 	if (ImGui::BeginMenuBar()) {
 		if (ImGui::BeginMenu("Data Source")) {
@@ -81,7 +84,8 @@ void AppManager::RenderDataWindow() {
 }
 
 void AppManager::ShowFilePathWindow(const char* label) {
-	if (!ImGui::Begin(label, &mShowAuxWindow)) {
+	ImGui::SetNextWindowSize(ImVec2(320, 80));
+	if (!ImGui::Begin(label, &mShowAuxWindow, ImGuiWindowFlags_NoResize)) {
 		ImGui::End();
 	}
 	else {
@@ -91,9 +95,11 @@ void AppManager::ShowFilePathWindow(const char* label) {
 			if (mDS == DataSource::CSV) {
 				//load csv
 				SimpleCSVLoader csvLoader(mFilePathBuffer);
-				PlotData data = csvLoader.GetAll();
-				PlotDataGraph(data);
-				LoadSprite();
+				if (!csvLoader.mError) {
+					PlotData data = csvLoader.GetAll();
+					PlotDataGraph(data);
+					LoadSprite();
+				}
 			}
 			else if (mDS == DataSource::SCRIPT)
 				//load script
@@ -133,4 +139,10 @@ void AppManager::LoadSprite() {
 	}
 	mSprite.setTexture(mTexture);
 	mPlotExists = true;
+}
+
+//TODO: CHANGE THAT! ONLY FOR LUA TESTS
+void AppManager::foo() {
+	LuaEmbedder lua;
+	lua.test();
 }

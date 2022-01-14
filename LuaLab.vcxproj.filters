@@ -45,12 +45,18 @@
     <ClCompile Include="src\vendor\pbPlots\pbPlots.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\LuaEmbedder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\AppManager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\SimpleCSVLoader.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LuaEmbedder.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

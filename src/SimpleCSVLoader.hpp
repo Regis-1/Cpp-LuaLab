@@ -16,6 +16,8 @@ private:
 
 	void AddRecord(std::string line);
 public:
+	bool mError = false;
+
 	SimpleCSVLoader() = delete;
 	SimpleCSVLoader(const char* path, const char delimiter = ';');
 	~SimpleCSVLoader();

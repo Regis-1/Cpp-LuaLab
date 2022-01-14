@@ -2,8 +2,10 @@
 
 SimpleCSVLoader::SimpleCSVLoader(const char* path, const char delimiter) : mDelimiter(delimiter) {
 	mFS.open(path, std::ios::in);
-	if (!mFS)
+	if (!mFS) {
 		printf("Invalid file!\n");
+		mError = true;
+	}
 }
 
 SimpleCSVLoader::~SimpleCSVLoader() {
