@@ -1,7 +1,8 @@
-#pragma once
+#ifndef APPMANAGER_HPP
+#define APPMANAGER_HPP
+
 #include "imgui.h"
 #include "imgui-SFML.h"
-#include "SimpleCSVLoader.hpp"
 #include "LuaEmbedder.hpp"
 #include "pbPlots.hpp"
 #include "supportLib.hpp"
@@ -39,7 +40,7 @@ private:
 	void ShowFilePathWindow(const char* label);
 	void PlotDataGraph(PlotData& data);
 	void LoadSprite();
-	void foo();
+	void RunScript(const std::string path);
 public:
 	AppManager() = delete;
 	AppManager(const AppManager& other) = delete;
@@ -48,3 +49,5 @@ public:
 
 	void Run();
 };
+
+#endif

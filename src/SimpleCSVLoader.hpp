@@ -1,4 +1,6 @@
-#pragma once
+#ifndef SIMPLECSVLOADER_HPP
+#define SIMPLECSVLOADER_HPP
+
 #include <vector>
 #include <fstream>
 #include <string>
@@ -24,3 +26,5 @@ public:
 	
 	PlotData GetAll();
 };
+
+#endif

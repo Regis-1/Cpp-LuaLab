@@ -1,4 +1,5 @@
 #include "AppManager.hpp"
+PlotData luaData = {};
 
 AppManager::AppManager(const int width, const int height, const char* title)
 	:mScrWidth(width), mScrHeight(height), mTitle(title) {
@@ -35,7 +36,6 @@ void AppManager::Run() {
 				ShowFilePathWindow("Lua script path");
 				break;
 			case CONSOLE:
-				foo();
 				mDS = DataSource::NONE;
 				break;
 			default:
@@ -101,9 +101,11 @@ void AppManager::ShowFilePathWindow(const char* label) {
 					LoadSprite();
 				}
 			}
-			else if (mDS == DataSource::SCRIPT)
-				//load script
-				int x = 0;
+			else if (mDS == DataSource::SCRIPT) {
+				RunScript(mFilePathBuffer);
+				PlotDataGraph(luaData);
+				LoadSprite();
+			}
 		}
 		ImGui::End();
 	}
@@ -142,7 +144,7 @@ void AppManager::LoadSprite() {
 }
 
 //TODO: CHANGE THAT! ONLY FOR LUA TESTS
-void AppManager::foo() {
+void AppManager::RunScript(const std::string path) {
 	LuaEmbedder lua;
-	lua.test();
+	lua.InterpreteLuaScript(path);
 }
