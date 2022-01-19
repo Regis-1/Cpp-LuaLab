@@ -122,6 +122,7 @@ void AppManager::PlotDataGraph(PlotData& data) {
 		std::vector<double>* pngdata = ConvertToPNG(imageReference->image);
 		WriteToFile(pngdata, "lastPlot.png");
 		DeleteImage(imageReference->image);
+		delete pngdata;
 	}
 	else {
 		std::cerr << "Error: ";
@@ -138,12 +139,12 @@ void AppManager::PlotDataGraph(PlotData& data) {
 void AppManager::LoadSprite() {
 	if (!mTexture.loadFromFile("lastPlot.png")) {
 		printf("Error while rendering plot texture!\n");
+		return;
 	}
 	mSprite.setTexture(mTexture);
 	mPlotExists = true;
 }
 
-//TODO: CHANGE THAT! ONLY FOR LUA TESTS
 void AppManager::RunScript(const std::string path) {
 	LuaEmbedder lua;
 	lua.InterpreteLuaScript(path);

@@ -37,6 +37,7 @@ int Plot(lua_State* L)
 
 	luaData = { luaX, luaY };
 
+	lua_pop(L, lua_gettop(L));
 	return 0;
 }
 

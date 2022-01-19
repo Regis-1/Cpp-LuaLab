@@ -4199,6 +4199,9 @@ vector<double> *ConvertToPNGWithOptions(RGBABitmapImage *image, double colorType
 
   pngData = PNGSerializeChunks(png);
 
+  delete png;
+  delete colorData;
+
   return pngData;
 }
 vector<double> *PNGSerializeChunks(PNGImage *png){
