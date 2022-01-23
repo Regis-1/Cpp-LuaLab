@@ -13,8 +13,7 @@
 enum DataSource {
 	NONE,
 	CSV,
-	SCRIPT,
-	CONSOLE
+	SCRIPT
 };
 
 class AppManager {

@@ -35,9 +35,6 @@ void AppManager::Run() {
 			case SCRIPT:
 				ShowFilePathWindow("Lua script path");
 				break;
-			case CONSOLE:
-				mDS = DataSource::NONE;
-				break;
 			default:
 				break;
 			}
@@ -71,8 +68,6 @@ void AppManager::RenderDataWindow() {
 				mDS = DataSource::CSV;
 			if (ImGui::MenuItem("Lua script.."))
 				mDS = DataSource::SCRIPT;
-			if (ImGui::MenuItem("Console"))
-				mDS = DataSource::CONSOLE;
 			ImGui::EndMenu();
 		}
 		ImGui::EndMenuBar();
@@ -84,7 +79,7 @@ void AppManager::RenderDataWindow() {
 }
 
 void AppManager::ShowFilePathWindow(const char* label) {
-	ImGui::SetNextWindowSize(ImVec2(320, 80));
+	ImGui::SetNextWindowSize(ImVec2(350, 80));
 	if (!ImGui::Begin(label, &mShowAuxWindow, ImGuiWindowFlags_NoResize)) {
 		ImGui::End();
 	}
